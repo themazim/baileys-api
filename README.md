@@ -4,7 +4,7 @@ An implementation of [@whiskeysockets/Baileys](https://github.com/whiskeysockets
 
 ## Requirements
 
--   **NodeJS** version **14.5.0** or higher.
+-   **NodeJS** version **18.16.0** or higher.
 
 ## Installation
 
