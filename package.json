@@ -1,41 +1,41 @@
 {
-  "name": "baileys-api",
-  "description": "Simple RESTful WhatsApp API",
-  "private": true,
-  "main": "app.js",
-  "type": "module",
-  "scripts": {
-    "start": "node ."
-  },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/ookamiiixd/baileys-api.git"
-  },
-  "author": "ookamiiixd <ookamiiixd@gmail.com>",
-  "bugs": {
-    "url": "https://github.com/ookamiiixd/baileys-api/issues"
-  },
-  "homepage": "https://github.com/ookamiiixd/baileys-api#readme",
-  "engines": {
-    "node": ">=18.16.0"
-  },
-  "dependencies": {
-    "@whiskeysockets/baileys": "^6.7.1",
-    "axios": "^1.6.8",
-    "cors": "^2.8.5",
-    "dotenv": "^16.4.5",
-    "express": "^4.19.2",
-    "express-validator": "^7.0.1",
-    "node-cache": "^5.1.2",
-    "node-cleanup": "^2.1.2",
-    "pino": "^9.0.0",
-    "qrcode": "^1.5.3"
-  },
-  "devDependencies": {
-    "eslint": "^9.1.1",
-    "eslint-config-prettier": "^9.1.0",
-    "eslint-config-xo": "^0.44.0",
-    "eslint-plugin-prettier": "^5.1.3",
-    "prettier": "^3.2.5"
-  }
+    "name": "baileys-api",
+    "description": "Simple RESTful WhatsApp API",
+    "private": true,
+    "main": "app.js",
+    "type": "module",
+    "scripts": {
+        "start": "node ."
+    },
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/ookamiiixd/baileys-api.git"
+    },
+    "author": "ookamiiixd <ookamiiixd@gmail.com>",
+    "bugs": {
+        "url": "https://github.com/ookamiiixd/baileys-api/issues"
+    },
+    "homepage": "https://github.com/ookamiiixd/baileys-api#readme",
+    "engines": {
+        "node": ">=18.16.0"
+    },
+    "dependencies": {
+        "@whiskeysockets/baileys": "^6.7.1",
+        "axios": "^1.7.2",
+        "cors": "^2.8.5",
+        "dotenv": "^16.4.5",
+        "express": "^4.19.2",
+        "express-validator": "^7.1.0",
+        "node-cache": "^5.1.2",
+        "node-cleanup": "^2.1.2",
+        "pino": "^9.1.0",
+        "qrcode": "^1.5.3"
+    },
+    "devDependencies": {
+        "eslint": "^9.4.0",
+        "eslint-config-prettier": "^9.1.0",
+        "eslint-config-xo": "^0.45.0",
+        "eslint-plugin-prettier": "^5.1.3",
+        "prettier": "^3.3.0"
+    }
 }
