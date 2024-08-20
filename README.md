@@ -86,9 +86,9 @@ At this moment we are working to bring more functionalities
         => Send Message Contact
         => Send Message Location
         => Send Message React
-        => Send Message List
-        => Send Message Buttons
-        => Send Message Template
+        => Send Message List (Deprecated)
+        => Send Message Buttons (Deprecated)
+        => Send Message Template (Deprecated)
         => Send Message How To Forward
 ### Groups
     * Get Chat List
