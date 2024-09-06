@@ -29,7 +29,7 @@ const send = async (req, res) => {
         const exists = await isExists(session, receiver, isGroup)
 
         if (!exists) {
-            return response(res, 400, false, 'The receiver number is not exists.')
+            return response(res, 400, false, 'The receiver number does not exists.', { receiver, exists })
         }
 
         if (filterTypeMessaje.length > 0) {
@@ -46,11 +46,11 @@ const send = async (req, res) => {
             }
         }
 
-        await sendMessage(session, receiver, message, 0)
+        const responseData = await sendMessage(session, receiver, message, 0)
 
-        response(res, 200, true, 'The message has been successfully sent.')
-    } catch {
-        response(res, 500, false, 'Failed to send the message.')
+        response(res, 200, true, 'The message has been successfully sent.', responseData)
+    } catch (error) {
+        response(res, 500, false, 'Failed to send the message.', error)
     }
 }
 
@@ -108,10 +108,10 @@ const deleteChat = async (req, res) => {
     try {
         const jidFormat = isGroup ? formatGroup(receiver) : formatPhone(receiver)
 
-        await sendMessage(session, jidFormat, { delete: message })
-        response(res, 200, true, 'Message has been successfully deleted.')
-    } catch {
-        response(res, 500, false, 'Failed to delete message .')
+        const responseData = await sendMessage(session, jidFormat, { delete: message })
+        response(res, 200, true, 'Message has been successfully deleted.', responseData)
+    } catch (error) {
+        response(res, 500, false, 'Failed to delete message.', error)
     }
 }
 
@@ -133,11 +133,11 @@ const forward = async (req, res) => {
             forward: key[0],
         }
 
-        await sendMessage(session, jidFormat, queryForward, 0)
+        const responseData = await sendMessage(session, jidFormat, queryForward, 0)
 
-        response(res, 200, true, 'The message has been successfully forwarded.')
-    } catch {
-        response(res, 500, false, 'Failed to forward the message.')
+        response(res, 200, true, 'The message has been successfully forwarded.', responseData)
+    } catch (error) {
+        response(res, 500, false, 'Failed to forward the message.', error)
     }
 }
 
@@ -146,15 +146,15 @@ const read = async (req, res) => {
     const { keys } = req.body
 
     try {
-        await readMessage(session, keys)
+        const responseData = await readMessage(session, keys)
 
         if (!keys[0].id) {
             throw new Error('Data not found')
         }
 
-        response(res, 200, true, 'The message has been successfully marked as read.')
-    } catch {
-        response(res, 500, false, 'Failed to mark the message as read.')
+        response(res, 200, true, 'The message has been successfully marked as read.', responseData)
+    } catch (error) {
+        response(res, 500, false, 'Failed to mark the message as read.', error)
     }
 }
 
@@ -165,11 +165,11 @@ const sendPresence = async (req, res) => {
     try {
         const jidFormat = isGroup ? formatGroup(receiver) : formatPhone(receiver)
 
-        await session.sendPresenceUpdate(presence, jidFormat)
+        const responseData = await session.sendPresenceUpdate(presence, jidFormat)
 
-        response(res, 200, true, 'Presence has been successfully sent.')
-    } catch {
-        response(res, 500, false, 'Failed to send presence.')
+        response(res, 200, true, 'Presence has been successfully sent.', responseData)
+    } catch (error) {
+        response(res, 500, false, 'Failed to send presence.', error)
     }
 }
 
@@ -182,12 +182,13 @@ const downloadMedia = async (req, res) => {
         const dataMessage = await getMessageMedia(session, message)
 
         response(res, 200, true, 'Message downloaded successfully', dataMessage)
-    } catch {
+    } catch (error) {
         response(
             res,
             500,
             false,
             'Error downloading multimedia message: it may not exist or may not contain multimedia content.',
+            error,
         )
     }
 }

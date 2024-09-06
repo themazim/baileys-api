@@ -28,8 +28,8 @@ const getListWithoutParticipants = async (req, res) => {
     try {
         const groups = await getGroupsWithParticipants(session)
         return response(res, 200, true, '', groups)
-    } catch {
-        response(res, 500, false, 'Failed to get group list with participants.')
+    } catch (error) {
+        response(res, 500, false, 'Failed to get group list with participants.', error)
     }
 }
 
@@ -45,8 +45,8 @@ const getGroupMetaData = async (req, res) => {
         }
 
         response(res, 200, true, '', data)
-    } catch {
-        response(res, 500, false, 'Failed to get group metadata.')
+    } catch (error) {
+        response(res, 500, false, 'Failed to get group metadata.', error)
     }
 }
 
@@ -57,8 +57,8 @@ const create = async (req, res) => {
     try {
         const group = await session.groupCreate(groupName, participantsformat)
         response(res, 200, true, 'The group has been successfully created.', group)
-    } catch {
-        response(res, 500, false, 'Failed to create the group.')
+    } catch (error) {
+        response(res, 500, false, 'Failed to create the group.', error)
     }
 }
 
@@ -75,11 +75,11 @@ const send = async (req, res) => {
             return response(res, 400, false, 'The receiver number is not exists.')
         }
 
-        await sendMessage(session, receiver, message, 0)
+        const responseData = await sendMessage(session, receiver, message, 0)
 
-        response(res, 200, true, 'The message has been successfully sent.')
-    } catch {
-        response(res, 500, false, 'Failed to send the message.')
+        response(res, 200, true, 'The message has been successfully sent.', responseData)
+    } catch (error) {
+        response(res, 500, false, 'Failed to send the message.', error)
     }
 }
 
@@ -96,10 +96,10 @@ const groupParticipantsUpdate = async (req, res) => {
             return response(res, 400, false, 'The group is not exists.')
         }
 
-        await participantsUpdate(session, formatGroup(jid), participantsFormat, action)
-        response(res, 200, true, 'Update participants successfully.')
-    } catch {
-        response(res, 500, false, 'Failed update participants.')
+        const responseData = await participantsUpdate(session, formatGroup(jid), participantsFormat, action)
+        response(res, 200, true, 'Update participants successfully.', responseData)
+    } catch (error) {
+        response(res, 500, false, 'Failed update participants.', error)
     }
 }
 
@@ -133,11 +133,11 @@ const groupUpdateDescription = async (req, res) => {
             return response(res, 400, false, 'The group is not exists.')
         }
 
-        await updateDescription(session, formatGroup(jid), description)
+        const responseData = await updateDescription(session, formatGroup(jid), description)
 
-        response(res, 200, true, 'Update description successfully.')
-    } catch {
-        response(res, 500, false, 'Failed description subject.')
+        response(res, 200, true, 'Update description successfully.', responseData)
+    } catch (error) {
+        response(res, 500, false, 'Failed description subject.', error)
     }
 }
 
@@ -153,11 +153,11 @@ const groupSettingUpdate = async (req, res) => {
             return response(res, 400, false, 'The group is not exists.')
         }
 
-        await settingUpdate(session, jid, settings)
+        const responseData = await settingUpdate(session, jid, settings)
 
-        response(res, 200, true, 'Update setting successfully.')
-    } catch {
-        response(res, 500, false, 'Failed update setting.')
+        response(res, 200, true, 'Update setting successfully.', responseData)
+    } catch (error) {
+        response(res, 500, false, 'Failed update setting.', error)
     }
 }
 
@@ -171,11 +171,11 @@ const groupLeave = async (req, res) => {
             return response(res, 400, false, 'The group is not exists.')
         }
 
-        await leave(session, jid)
+        const responseData = await leave(session, jid)
 
-        response(res, 200, true, 'Leave group successfully.')
-    } catch {
-        response(res, 500, false, 'Failed leave group.')
+        response(res, 200, true, 'Leave group successfully.', responseData)
+    } catch (error) {
+        response(res, 500, false, 'Failed leave group.', error)
     }
 }
 
@@ -192,8 +192,8 @@ const groupInviteCode = async (req, res) => {
         const group = await inviteCode(session, jid)
 
         response(res, 200, true, 'Invite code successfully.', group)
-    } catch {
-        response(res, 500, false, 'Failed invite code.')
+    } catch (error) {
+        response(res, 500, false, 'Failed invite code.', error)
     }
 }
 
@@ -203,8 +203,8 @@ const groupAcceptInvite = async (req, res) => {
         const group = await acceptInvite(session, req.body)
 
         response(res, 200, true, 'Accept invite successfully.', group)
-    } catch {
-        response(res, 500, false, 'Failed accept invite.')
+    } catch (error) {
+        response(res, 500, false, 'Failed accept invite.', error)
     }
 }
 
@@ -222,8 +222,8 @@ const groupRevokeInvite = async (req, res) => {
         const group = await revokeInvite(session, jid)
 
         response(res, 200, true, 'Revoke code successfully.', group)
-    } catch {
-        response(res, 500, false, 'Failed rovoke code.')
+    } catch (error) {
+        response(res, 500, false, 'Failed rovoke code.', error)
     }
 }
 
@@ -238,10 +238,10 @@ const updateProfilePicture = async (req, res) => {
             return response(res, 400, false, 'The group is not exists.')
         }
 
-        await profilePicture(session, jid, url)
-        response(res, 200, true, 'Update profile picture successfully.')
-    } catch {
-        response(res, 500, false, 'Failed Update profile picture.')
+        const responseData = await profilePicture(session, jid, url)
+        response(res, 200, true, 'Update profile picture successfully.', responseData)
+    } catch (error) {
+        response(res, 500, false, 'Failed Update profile picture.', error)
     }
 }
 

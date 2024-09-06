@@ -20,7 +20,7 @@ const add = (req, res) => {
     const { id, typeAuth, phoneNumber } = req.body
 
     if (isSessionExists(id)) {
-        return response(res, 409, false, 'Session already exists, please use another id.')
+        return response(res, 409, false, 'Session already exists, please use another id.', { id })
     }
 
     if (!['qr', 'code'].includes(typeAuth) && typeAuth !== undefined) {
@@ -48,7 +48,7 @@ const del = async (req, res) => {
         deleteSession(id)
     }
 
-    response(res, 200, true, 'The session has been successfully deleted.')
+    response(res, 200, true, 'The session has been successfully deleted.', { id })
 }
 
 const list = (req, res) => {
